@@ -1,13 +1,12 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import Roll from "@/components/Roll";
-import Story from "@/components/Story";
+import Wall from "@/components/Wall";
+import Aperture from "@/components/Aperture";
+import About from "@/components/About";
 import Services from "@/components/Services";
 import Process from "@/components/Process";
 import EnquiryForm from "@/components/EnquiryForm";
 import Footer from "@/components/Footer";
-import Cursor from "@/components/Cursor";
-import Grain from "@/components/Grain";
 
 export default function Home() {
   return (
@@ -15,15 +14,14 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <Roll />
-        <Story />
+        <Wall />
+        <Aperture />
+        <About />
         <Services />
         <Process />
         <EnquiryForm />
       </main>
       <Footer />
-      <Grain />
-      <Cursor />
     </>
   );
 }

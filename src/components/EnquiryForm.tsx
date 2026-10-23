@@ -8,19 +8,19 @@ type Status = "idle" | "sending" | "sent" | "error";
 
 // The form carries a light meter. Each required field you fill moves the
 // needle toward 0: correct exposure means the enquiry is ready to send.
-const REQUIRED = ["name", "phone", "service"] as const;
+const REQUIRED = 3;
+const PHONE = /^[0-9+\s-]{7,16}$/;
 
 export default function EnquiryForm() {
   const [service, setService] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
-  const [filled, setFilled] = useState(0);
+  const [missing, setMissing] = useState<string[]>(["name", "phone", "type of shoot"]);
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     const onPick = (e: Event) => {
       setService((e as CustomEvent<string>).detail);
-      // the select is controlled; let React paint it, then re-measure
       requestAnimationFrame(measure);
     };
     window.addEventListener(SERVICE_EVENT, onPick);
@@ -32,11 +32,11 @@ export default function EnquiryForm() {
   const measure = () => {
     if (!formRef.current) return;
     const f = readForm();
-    let n = 0;
-    if (f.name?.trim()) n++;
-    if (/^[0-9+\s-]{7,16}$/.test(f.phone ?? "")) n++;
-    if (f.service) n++;
-    setFilled(n);
+    const m: string[] = [];
+    if (!f.name?.trim()) m.push("name");
+    if (!PHONE.test(f.phone ?? "")) m.push("phone");
+    if (!f.service) m.push("type of shoot");
+    setMissing(m);
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -54,7 +54,7 @@ export default function EnquiryForm() {
       setStatus("sent");
       formRef.current?.reset();
       setService("");
-      setFilled(0);
+      setMissing(["name", "phone", "type of shoot"]);
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "The enquiry couldn’t be sent.");
@@ -74,44 +74,43 @@ export default function EnquiryForm() {
     return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(lines.join("\n"))}`;
   };
 
-  // -3 (nothing filled) → 0 (ready)
-  const ev = -3 + (filled / REQUIRED.length) * 3;
-  const meterLabel =
-    filled === REQUIRED.length
-      ? "Correct exposure · ready to send"
-      : `Underexposed · ${REQUIRED.length - filled} more to go: ${["name", "phone", "type of shoot"].filter((_, i) => {
-          const f = formRef.current ? readForm() : {};
-          return i === 0 ? !f.name?.trim() : i === 1 ? !/^[0-9+\s-]{7,16}$/.test(f.phone ?? "") : !f.service;
-        }).join(", ")}`;
+  const filled = REQUIRED - missing.length;
+  const ev = -3 + (filled / REQUIRED) * 3; // -3 (nothing filled) → 0 (ready)
+  const ready = missing.length === 0;
 
   return (
     <section className="section book" id="book">
       <div className="book__intro">
-        <p className="eyebrow eyebrow--light">Book a shoot</p>
-        <h2 className="h2 h2--light">Tell Dishant what you want to shoot</h2>
+        <p className="eyebrow">Book a shoot</p>
+        <h2 className="h2">
+          Tell Dishant
+          <br />
+          what you want
+          <br />
+          to shoot
+        </h2>
         <p>
           Share a few details and Dishant will reply with availability and a quote. Not sure which kind of shoot you
           need? Describe the idea in the message.
         </p>
         {site.whatsapp && (
           <a
-            className="btn btn--light"
+            className="pill pill--dark"
             href={`https://wa.me/${site.whatsapp}`}
             onClick={(e) => (e.currentTarget.href = whatsappHref())}
             target="_blank"
             rel="noopener noreferrer"
           >
-            Message on WhatsApp
+            Message on WhatsApp ↗
           </a>
         )}
       </div>
 
       {status === "sent" ? (
         <div className="form form--done" role="status">
-          <p className="pencil form__done-mark">Got it!</p>
-          <h3>Enquiry sent</h3>
-          <p>Dishant will get back to you on the phone number you shared.</p>
-          <button type="button" className="text-link text-link--light" onClick={() => setStatus("idle")}>
+          <p className="eyebrow eyebrow--orange">Enquiry sent</p>
+          <h3>Dishant will get back to you on the number you shared.</h3>
+          <button type="button" className="pill" onClick={() => setStatus("idle")}>
             Send another enquiry
           </button>
         </div>
@@ -126,7 +125,9 @@ export default function EnquiryForm() {
               ))}
               <i className="meter__needle" style={{ left: `${((ev + 3) / 6) * 100}%` }} />
             </div>
-            <p className="meter__label mono">{meterLabel}</p>
+            <p className="meter__label mono">
+              {ready ? "Correct exposure · ready to send" : `Underexposed · still needs ${missing.join(", ")}`}
+            </p>
           </div>
 
           <div className="field">
@@ -174,7 +175,7 @@ export default function EnquiryForm() {
           <input className="hp" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" />
 
           <div className="form__footer">
-            <button type="submit" className="btn btn--light" disabled={status === "sending"}>
+            <button type="submit" className="pill pill--dark pill--lg" disabled={status === "sending"}>
               {status === "sending" ? "Sending…" : "Send enquiry"}
             </button>
             {status === "error" && (

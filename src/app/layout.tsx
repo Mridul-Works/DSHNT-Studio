@@ -1,14 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Big_Shoulders, Hanken_Grotesk, IBM_Plex_Mono, Permanent_Marker } from "next/font/google";
+import { Inter_Tight, Geist_Mono } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
 import "lenis/dist/lenis.css";
 import "./globals.css";
-import "./sections.css";
 
-const display = Big_Shoulders({ subsets: ["latin"], weight: ["600", "800"], variable: "--font-display", adjustFontFallback: false });
-const body = Hanken_Grotesk({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-body" });
-const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-mono" });
-const pencil = Permanent_Marker({ subsets: ["latin"], weight: "400", variable: "--font-pencil" });
+const sans = Inter_Tight({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-sans" });
+const mono = Geist_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
   title: "DSHNT Studio · Photography by Dishant",
@@ -16,18 +13,18 @@ export const metadata: Metadata = {
     "Portrait, creative, nature and commercial photography by Dishant. See the work and book a shoot with DSHNT Studio.",
   openGraph: {
     title: "DSHNT Studio · Photography by Dishant",
-    description: "My first salary bought a camera. The rest is history.",
+    description: "Every frame, from the heart.",
     type: "website",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0e0f10",
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable} ${pencil.variable}`}>
+    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
       <body>
         <SmoothScroll>{children}</SmoothScroll>
       </body>

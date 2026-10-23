@@ -3,7 +3,8 @@
 export const site = {
   name: "DSHNT Studio",
   owner: "Dishant",
-  tagline: "Passion in every frame",
+  tagline: "Every frame, from the heart",
+  year: 2026,
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "",
   // TODO: replace with the real profile links.
   socials: [
@@ -13,13 +14,32 @@ export const site = {
   ],
 };
 
-export const story = {
-  quote: "My first salary bought a camera. The rest is history.",
-  paragraphs: [
-    "Most people spend their first salary on themselves. Dishant spent his on a DSLR.",
-    "Photography has always been the thing he loves more than anything, and that first camera turned a passion into a craft. Today DSHNT Studio is where that passion becomes his full-time work.",
-    "Every frame you see here was taken by someone who chose the camera before anything else.",
+export const hero = {
+  lineA: "Every frame,",
+  lineB: "from the heart.",
+  sub: "Photography by Dishant. Portraits, places, products and everything in between.",
+};
+
+export const about = {
+  headline: ["Photography,", "full-time."],
+  body: [
+    "Dishant has loved photography for as long as he can remember, and today it’s his whole job.",
+    "Portraits, street, landscapes, products: whatever is in front of the lens, the aim is the same. A picture you’ll want to keep.",
   ],
+  facts: [
+    ["Works with", "People, places, products"],
+    ["Delivers", "Edited photos, prints and albums"],
+    ["Bookings", "Open for new shoots"],
+  ],
+};
+
+// The scroll-driven aperture. Stops tick from f/16 down to f/1.8 as it opens.
+export const aperture = {
+  eyebrow: "The instrument",
+  headline: ["Start with", "the light."],
+  body: "Every shoot begins with one decision: how much light to let in. Dishant plans the look, the place and the shot list before the day, so the session itself is relaxed and nothing is left to chance.",
+  stops: [16, 11, 8, 5.6, 4, 2.8, 2, 1.8],
+  src: "https://picsum.photos/seed/dshnt-aperture/1400/1400",
 };
 
 export type Service = { name: string; detail: string };
@@ -93,41 +113,38 @@ export const steps = [
   { title: "Deliver", text: "Edited, retouched photos delivered online, with prints and albums on request." },
 ];
 
-// Portfolio. Replace `src` with Dishant's own photos (e.g. "/work/portrait-01.jpg")
-// and set `select: true` on the frames he'd circle on a contact sheet.
+// Portfolio. Replace `src` with Dishant's own photos (e.g. "/work/portrait-01.jpg"),
+// keep `ratio` honest (w/h) so the wall lays out without jumping, and set
+// `select: true` on the frames he'd pick first.
 export type Category = "Portrait" | "Creative" | "Nature" | "Commercial";
 export type Frame = {
   src: string;
   title: string;
   category: Category;
+  ratio: number;
   exif: string;
   select?: boolean;
 };
 
-const ph = (seed: string, w = 900, h = 1125) => `https://picsum.photos/seed/${seed}/${w}/${h}`;
+const ph = (seed: string, w: number, h: number) => `https://picsum.photos/seed/${seed}/${w}/${h}`;
 
 export const categories: Category[] = ["Portrait", "Creative", "Nature", "Commercial"];
 
 export const frames: Frame[] = [
-  { src: ph("dshnt-p1"), title: "Window light portrait", category: "Portrait", exif: "85mm · f/1.8 · 1/200 · ISO 200", select: true },
-  { src: ph("dshnt-c1"), title: "Old city, early morning", category: "Creative", exif: "35mm · f/5.6 · 1/500 · ISO 100" },
-  { src: ph("dshnt-n1"), title: "Ridge at golden hour", category: "Nature", exif: "24mm · f/8 · 1/250 · ISO 100", select: true },
-  { src: ph("dshnt-b1"), title: "Café menu shoot", category: "Commercial", exif: "50mm · f/2.8 · 1/160 · ISO 400" },
-  { src: ph("dshnt-p2"), title: "Studio headshot", category: "Portrait", exif: "85mm · f/4 · 1/160 · ISO 100" },
-  { src: ph("dshnt-c2"), title: "Light trails, highway", category: "Creative", exif: "18mm · f/11 · 20s · ISO 100", select: true },
-  { src: ph("dshnt-n2"), title: "Kingfisher, wetlands", category: "Nature", exif: "300mm · f/5.6 · 1/2000 · ISO 800" },
-  { src: ph("dshnt-b2"), title: "Product on stone", category: "Commercial", exif: "100mm · f/8 · 1/125 · ISO 100", select: true },
-  { src: ph("dshnt-p3"), title: "Lookbook, outdoors", category: "Portrait", exif: "50mm · f/2 · 1/1000 · ISO 100" },
-  { src: ph("dshnt-c3"), title: "Monochrome market", category: "Creative", exif: "35mm · f/4 · 1/320 · ISO 400" },
-  { src: ph("dshnt-n3"), title: "River after the rain", category: "Nature", exif: "16mm · f/16 · 2s · ISO 50" },
-  { src: ph("dshnt-b3"), title: "Bike at the dealership", category: "Commercial", exif: "24mm · f/5.6 · 1/200 · ISO 200" },
-  { src: ph("dshnt-p4"), title: "Candid, on the rooftop", category: "Portrait", exif: "35mm · f/1.4 · 1/800 · ISO 100", select: true },
-  { src: ph("dshnt-c4"), title: "Dew on a leaf", category: "Creative", exif: "100mm macro · f/11 · 1/200 · ISO 200" },
-  { src: ph("dshnt-n4"), title: "Trail through the pines", category: "Nature", exif: "35mm · f/8 · 1/160 · ISO 200" },
-  { src: ph("dshnt-b4"), title: "Gym campaign", category: "Commercial", exif: "50mm · f/2.8 · 1/500 · ISO 640" },
+  { src: ph("dshnt-p1", 900, 1125), ratio: 4 / 5, title: "Window light portrait", category: "Portrait", exif: "85mm · f/1.8 · 1/200 · ISO 200", select: true },
+  { src: ph("dshnt-c1", 1200, 800), ratio: 3 / 2, title: "Old city, early morning", category: "Creative", exif: "35mm · f/5.6 · 1/500 · ISO 100" },
+  { src: ph("dshnt-n1", 1200, 900), ratio: 4 / 3, title: "Ridge at golden hour", category: "Nature", exif: "24mm · f/8 · 1/250 · ISO 100", select: true },
+  { src: ph("dshnt-b1", 1000, 1000), ratio: 1, title: "Café menu shoot", category: "Commercial", exif: "50mm · f/2.8 · 1/160 · ISO 400" },
+  { src: ph("dshnt-p2", 900, 1125), ratio: 4 / 5, title: "Studio headshot", category: "Portrait", exif: "85mm · f/4 · 1/160 · ISO 100" },
+  { src: ph("dshnt-c2", 1200, 800), ratio: 3 / 2, title: "Light trails, highway", category: "Creative", exif: "18mm · f/11 · 20s · ISO 100", select: true },
+  { src: ph("dshnt-n2", 900, 1125), ratio: 4 / 5, title: "Kingfisher, wetlands", category: "Nature", exif: "300mm · f/5.6 · 1/2000 · ISO 800" },
+  { src: ph("dshnt-b2", 1000, 1000), ratio: 1, title: "Product on stone", category: "Commercial", exif: "100mm · f/8 · 1/125 · ISO 100", select: true },
+  { src: ph("dshnt-p3", 1200, 900), ratio: 4 / 3, title: "Lookbook, outdoors", category: "Portrait", exif: "50mm · f/2 · 1/1000 · ISO 100" },
+  { src: ph("dshnt-c3", 900, 1125), ratio: 4 / 5, title: "Monochrome market", category: "Creative", exif: "35mm · f/4 · 1/320 · ISO 400" },
+  { src: ph("dshnt-n3", 1200, 800), ratio: 3 / 2, title: "River after the rain", category: "Nature", exif: "16mm · f/16 · 2s · ISO 50" },
+  { src: ph("dshnt-b3", 1200, 900), ratio: 4 / 3, title: "Bike at the dealership", category: "Commercial", exif: "24mm · f/5.6 · 1/200 · ISO 200" },
+  { src: ph("dshnt-p4", 900, 1125), ratio: 4 / 5, title: "Candid, on the rooftop", category: "Portrait", exif: "35mm · f/1.4 · 1/800 · ISO 100", select: true },
+  { src: ph("dshnt-c4", 1000, 1000), ratio: 1, title: "Dew on a leaf", category: "Creative", exif: "100mm macro · f/11 · 1/200 · ISO 200" },
+  { src: ph("dshnt-n4", 900, 1125), ratio: 4 / 5, title: "Trail through the pines", category: "Nature", exif: "35mm · f/8 · 1/160 · ISO 200" },
+  { src: ph("dshnt-b4", 1200, 800), ratio: 3 / 2, title: "Gym campaign", category: "Commercial", exif: "50mm · f/2.8 · 1/500 · ISO 640" },
 ];
-
-export const hero = {
-  src: ph("dshnt-hero", 2000, 1300),
-  exif: ["50mm", "f/1.8", "1/250", "ISO 200"],
-};
