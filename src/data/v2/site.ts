@@ -71,69 +71,28 @@ export const aperture = {
   src: "/work/IMG_1558.jpg",
 };
 
-export type Service = { name: string; detail: string };
-export type ServiceGroup = { id: string; title: string; services: Service[] };
+// One flat list, in this order, with no headings. `peek` picks which category's
+// photo floats beside the pointer while a row is hovered.
+export type Service = { name: string; detail: string; peek?: Category };
 
-export const serviceGroups: ServiceGroup[] = [
-  {
-    id: "people",
-    title: "People",
-    services: [
-      { name: "Portrait Photography", detail: "Individual, professional headshots, creative portraits" },
-    ],
-  },
-  {
-    id: "creative",
-    title: "Creative & artistic",
-    services: [
-      { name: "Fashion & Modelling", detail: "Model portfolios, lookbooks" },
-      { name: "Fine Art Photography", detail: "Conceptual, artistic prints for sale" },
-      { name: "Black & White", detail: "Timeless monochrome series" },
-      { name: "Street Photography", detail: "Everyday life, the city, real stories" },
-      { name: "Candid / Documentary", detail: "Unposed, natural storytelling" },
-      { name: "Long Exposure & Night", detail: "Light trails, night skies, city lights" },
-      { name: "Macro Photography", detail: "Insects, flowers, tiny details" },
-      { name: "Creative Conceptual", detail: "Themed shoots, props, smoke, fairy lights" },
-    ],
-  },
-  {
-    id: "nature",
-    title: "Nature & travel",
-    services: [
-      { name: "Landscape Photography", detail: "Mountains, sunsets, rivers" },
-      { name: "Travel Photography", detail: "Places, cultures, people on the road" },
-      { name: "Wildlife & Birds", detail: "Sanctuaries, national parks" },
-    ],
-  },
-  {
-    id: "commercial",
-    title: "Business & commercial",
-    services: [
-      { name: "Product Photography", detail: "E-commerce, Amazon/Flipkart listings, catalogues" },
-      { name: "Food Photography", detail: "Restaurants, cafés, cloud kitchens, menus" },
-      { name: "Brand & Lifestyle", detail: "Social media content for small businesses" },
-      { name: "Automotive", detail: "Cars and bikes, dealership shoots" },
-      { name: "Fitness & Gym", detail: "Trainers, athletes, gym promotions" },
-      { name: "Sports Photography", detail: "Local tournaments, school/college sports" },
-      { name: "Jewellery Photography", detail: "Close-up, high-detail shots for jewellers" },
-    ],
-  },
+export const services: Service[] = [
+  { name: "Sports Photography", detail: "Local tournaments, school/college sports" },
+  { name: "Fitness & Gym", detail: "Trainers, athletes, gym promotions" },
+  { name: "Brand & Lifestyle", detail: "Social media content for small businesses" },
+  { name: "Food Photography", detail: "Restaurants, cafés, cloud kitchens, menus" },
+  { name: "Product Photography", detail: "E-commerce, Amazon/Flipkart listings, catalogues" },
+  { name: "Travel Photography", detail: "Places, cultures, people on the road", peek: "Travel" },
+  { name: "Landscape Photography", detail: "Mountains, sunsets, rivers", peek: "Nature" },
+  { name: "Creative Conceptual", detail: "Themed shoots, props, smoke, fairy lights", peek: "Creative" },
+  { name: "Long Exposure & Night", detail: "Light trails, night skies, city lights", peek: "Creative" },
+  { name: "Street Photography", detail: "Everyday life, the city, real stories", peek: "Creative" },
+  { name: "Black & White", detail: "Timeless monochrome series", peek: "Creative" },
+  { name: "Fashion & Modelling", detail: "Model portfolios, lookbooks", peek: "Portrait" },
+  { name: "Portrait Photography", detail: "Individual, professional headshots, creative portraits", peek: "Portrait" },
 ];
 
-export const extras = [
-  "Photo Editing & Retouching",
-  "Reels / Short Video Shoots for Instagram",
-  "Wedding Albums & Photo Books",
-  "Framed Prints & Canvas Wall Art",
-  "Drone Photography (where permitted)",
-  "Photography Workshops for Beginners",
-];
-
-export const allServiceNames = [
-  ...serviceGroups.flatMap((g) => g.services.map((s) => s.name)),
-  ...extras,
-  "Something else",
-];
+// The booking form's "type of shoot" dropdown offers the same list.
+export const allServiceNames = [...services.map((s) => s.name), "Something else"];
 
 export const steps = [
   { title: "Enquire", text: "Tell Dishant what you want to shoot, when and where." },
@@ -192,4 +151,7 @@ export const frames: Frame[] = [
   { src: "/work/allin-05.jpg", ratio: WIDE, title: "Neon shoes", category: "Creative", select: true },
   { src: "/work/banff-01.jpg", ratio: WIDE, title: "Lake Louise, the glacier", category: "Nature" },
   { src: "/work/banff-04.jpg", ratio: WIDE, title: "At Lake Louise", category: "Travel", select: true },
+  // Dishant's other two self-portraits (640px, from the insta folder)
+  { src: "/work/dishant-02.jpg", ratio: WIDE, title: "Dishant, on the driftwood", category: "Portrait" },
+  { src: "/work/dishant-03.jpg", ratio: WIDE, title: "Arsenal shirt, black and white", category: "Portrait" },
 ];

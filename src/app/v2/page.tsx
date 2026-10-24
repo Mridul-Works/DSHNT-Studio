@@ -10,7 +10,6 @@ import Services from "@/components/v2/Services";
 import Process from "@/components/v2/Process";
 import EnquiryForm from "@/components/v2/EnquiryForm";
 import Footer from "@/components/v2/Footer";
-import "./v2.css";
 
 export default function HomeV2() {
   return (

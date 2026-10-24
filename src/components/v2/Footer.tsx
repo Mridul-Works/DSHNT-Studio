@@ -1,6 +1,7 @@
 import { site } from "@/data/v2/site";
 
-export default function Footer() {
+// `home` is "" on /v2 itself and "/v2" on other v2 pages (see Header).
+export default function Footer({ home = "" }: { home?: string }) {
   return (
     <footer className="footer">
       <div className="rule">
@@ -20,7 +21,7 @@ export default function Footer() {
           keeping.
         </h2>
         <div className="footer__cta">
-          <a href="#book" className="pill pill--dark pill--lg">
+          <a href={`${home}#book`} className="pill pill--dark pill--lg">
             Book a shoot
           </a>
           {site.whatsapp && (

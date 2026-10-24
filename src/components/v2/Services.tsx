@@ -3,17 +3,12 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useLenis } from "lenis/react";
-import { extras, frames, serviceGroups, type Category } from "@/data/v2/site";
+import { frames, services, type Category } from "@/data/v2/site";
 
 export const SERVICE_EVENT = "dshnt:service";
 
-// Each service group has a representative photo that floats beside the
-// pointer while you hover the list. Groups with no matching frames show none.
-const groupCategory: Partial<Record<string, Category>> = {
-  people: "Portrait",
-  creative: "Creative",
-  nature: "Nature",
-};
+// One heading, then the flat list: no lede, no groups. Each row pre-fills the booking form,
+// and rows with a matching category float one of its photos beside the pointer.
 
 export default function Services() {
   const lenis = useLenis();
@@ -57,51 +52,19 @@ export default function Services() {
           <br />
           shoots
         </h2>
-        <p className="section__lede">Pick what you need and the booking form fills itself in.</p>
       </div>
 
-      <div className="groups">
-        {serviceGroups.map((g, gi) => (
-          <div
-            className="group"
-            key={g.id}
-            onPointerEnter={() => setPeek(groupCategory[g.id] ?? null)}
-            onPointerLeave={() => setPeek(null)}
-          >
-            <h3 className="group__title">
-              <span className="mono">0{gi + 1}</span>
-              {g.title}
-            </h3>
-            <ul className="group__list">
-              {g.services.map((s) => (
-                <li key={s.name}>
-                  <button type="button" className="service" onClick={() => enquire(s.name)}>
-                    <span className="service__name">{s.name}</span>
-                    <span className="service__detail">{s.detail}</span>
-                    <span className="service__cta pill">Enquire</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
+      <ul className="group__list">
+        {services.map((s) => (
+          <li key={s.name} onPointerEnter={() => setPeek(s.peek ?? null)} onPointerLeave={() => setPeek(null)}>
+            <button type="button" className="service" onClick={() => enquire(s.name)}>
+              <span className="service__name">{s.name}</span>
+              <span className="service__detail">{s.detail}</span>
+              <span className="service__cta pill">Enquire</span>
+            </button>
+          </li>
         ))}
-
-        <div className="group">
-          <h3 className="group__title">
-            <span className="mono">05</span>
-            Add-ons
-          </h3>
-          <ul className="extras__list">
-            {extras.map((x) => (
-              <li key={x}>
-                <button type="button" className="pill" onClick={() => enquire(x)}>
-                  {x}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
+      </ul>
 
       <div ref={peekEl} className={peekFrame ? "peek peek--on" : "peek"} aria-hidden="true">
         {peekFrame && <Image src={peekFrame.src} alt="" fill sizes="220px" />}

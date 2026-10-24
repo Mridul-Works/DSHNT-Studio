@@ -1106,6 +1106,37 @@ textarea {
   }
 }
 
+/* ---------- Work page (/v2/work) ---------- */
+.workpage {
+  padding: calc(80px + clamp(40px, 6vw, 80px)) var(--gutter) var(--section-y);
+}
+
+.workpage__head {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 24rem);
+  align-items: end;
+  gap: 1.5rem 3rem;
+  margin: clamp(1.5rem, 3vw, 2.5rem) 0;
+}
+
+.workpage__title {
+  margin: 0;
+  font-weight: 500;
+  font-size: clamp(4.5rem, 15vw, 14rem);
+  line-height: 0.84;
+  letter-spacing: -0.05em;
+}
+
+.workpage .tabs {
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+@media (max-width: 760px) {
+  .workpage__head {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ---------- Opens (scroll gallery) ---------- */
 .opens {
   position: relative;
@@ -1155,6 +1186,16 @@ textarea {
 
 .rule--light .rule__line {
   background: rgba(255, 255, 255, 0.18);
+}
+
+.opens__all {
+  color: #fff;
+  text-decoration: none;
+}
+
+.opens__all:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;
 }
 
 .opens__window {

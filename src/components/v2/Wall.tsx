@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useLenis } from "lenis/react";
 import { categories, frames, type Category } from "@/data/v2/site";
 import { shutterClick } from "@/lib/shutter";
 
-// The portfolio as a wall of prints. Mixed aspect ratios flow into columns;
-// each print carries a mono caption and opens full-size on click.
+// The full index: every frame on the site as a wall of prints, with category
+// tabs and a lightbox. /v2 shows a selection in the scroll gallery; this is all of it.
 
 export default function Wall() {
   const [filter, setFilter] = useState<Category | "All">("All");
@@ -47,29 +48,31 @@ export default function Wall() {
   const shot = open !== null ? frames[open] : null;
 
   return (
-    <section className="wall" id="work" aria-label="Selected work">
+    <section className="workpage" aria-labelledby="work-title">
       <div className="rule">
         <span className="rule__live">
           <i />
-          Now booking
+          All work
         </span>
         <span className="rule__line" />
-        <span className="rule__end">From the roll ↗</span>
+        <span className="rule__end">
+          {visible.length === frames.length ? `${frames.length} frames` : `${visible.length} of ${frames.length} frames`}
+        </span>
       </div>
 
-      <div className="wall__head">
-        <h2 className="h2">
-          Selected
-          <br />
-          work
-        </h2>
-        <div className="tabs" role="group" aria-label="Filter by category">
-          {(["All", ...categories] as const).map((c) => (
-            <button key={c} type="button" className="pill pill--tab" aria-pressed={filter === c} onClick={() => setFilter(c)}>
-              {c}
-            </button>
-          ))}
-        </div>
+      <div className="workpage__head">
+        <h1 className="workpage__title" id="work-title">
+          Work
+        </h1>
+        <p className="section__lede">Every frame on the site, in one place. Tap a print to open it.</p>
+      </div>
+
+      <div className="tabs" role="group" aria-label="Filter by category">
+        {(["All", ...categories] as const).map((c) => (
+          <button key={c} type="button" className="pill pill--tab" aria-pressed={filter === c} onClick={() => setFilter(c)}>
+            {c}
+          </button>
+        ))}
       </div>
 
       <div className="wall__grid" ref={wallRef} key={filter}>
@@ -86,7 +89,7 @@ export default function Wall() {
             aria-label={`Open ${f.title}`}
           >
             <span className="print__img" style={{ aspectRatio: String(f.ratio) }}>
-              <Image src={f.src} alt={f.title} fill sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw" />
+              <Image src={f.src} alt={f.title} fill sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw" />
             </span>
             <span className="print__meta mono">
               <span>{f.title}</span>
@@ -116,9 +119,9 @@ export default function Wall() {
               <button type="button" className="pill" onClick={() => setOpen(null)}>
                 Close
               </button>
-              <a href="#book" className="pill pill--dark" onClick={() => setOpen(null)}>
+              <Link href="/v2#book" className="pill pill--dark" onClick={() => setOpen(null)}>
                 Book a shoot like this
-              </a>
+              </Link>
             </div>
           </figure>
         )}

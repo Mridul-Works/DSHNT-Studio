@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useLenis } from "lenis/react";
 import { frames, opens } from "@/data/v2/site";
@@ -100,7 +101,12 @@ export default function Opens() {
             Selected work
           </span>
           <span className="rule__line" />
-          <span className="rule__end">Scroll to open</span>
+          <span className="rule__end">
+            Scroll to open ·{" "}
+            <Link href="/v2/work" className="opens__all">
+              All work ↗
+            </Link>
+          </span>
         </div>
 
         <div className="opens__window" ref={win}>
