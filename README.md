@@ -14,7 +14,8 @@ npm run build    # production build
 
 Everything you'd normally edit lives in one file: `src/data/site.ts`.
 
-- **Photos** — put his pictures in `public/work/` and point each entry in `frames` at them (`src: "/work/portrait-01.jpg"`). Set `ratio` to the real width ÷ height so the wall lays out without jumping, and `select: true` on the shots he'd show first (they're labelled "Pick"). `aperture.src` is the square photo revealed inside the big orange aperture.
+- **Photos** — the web copies (2400 px long edge, ~300 KB) are in `public/work/`; each entry in `frames` points at one. Set `ratio` to the real width ÷ height so the wall lays out without jumping, `select: true` on the shots to show first (labelled "Pick"), and `exif` only when the real exposure data is known. `aperture.src` is the photo revealed inside the big orange aperture.
+- **Masters** — the full-size originals and their compressed copies live in `assets/` (gitignored). To add a new photo: drop the original in `assets/`, make a 2400 px copy in `public/work/`, add a `frames` entry.
 - **Headline, about copy, services, process** — same file.
 - **Social links** — `site.socials`.
 

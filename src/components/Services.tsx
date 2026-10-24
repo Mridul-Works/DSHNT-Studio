@@ -8,12 +8,11 @@ import { extras, frames, serviceGroups, type Category } from "@/data/site";
 export const SERVICE_EVENT = "dshnt:service";
 
 // Each service group has a representative photo that floats beside the
-// pointer while you hover the list.
-const groupCategory: Record<string, Category> = {
+// pointer while you hover the list. Groups with no matching frames show none.
+const groupCategory: Partial<Record<string, Category>> = {
   people: "Portrait",
   creative: "Creative",
   nature: "Nature",
-  commercial: "Commercial",
 };
 
 export default function Services() {
@@ -66,7 +65,7 @@ export default function Services() {
           <div
             className="group"
             key={g.id}
-            onPointerEnter={() => setPeek(groupCategory[g.id])}
+            onPointerEnter={() => setPeek(groupCategory[g.id] ?? null)}
             onPointerLeave={() => setPeek(null)}
           >
             <h3 className="group__title">

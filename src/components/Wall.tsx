@@ -110,9 +110,7 @@ export default function Wall() {
             </div>
             <figcaption>
               <span className="lightbox__title">{shot.title}</span>
-              <span className="mono">
-                {shot.category} · {shot.exif}
-              </span>
+              <span className="mono">{shot.exif ? `${shot.category} · ${shot.exif}` : shot.category}</span>
             </figcaption>
             <div className="lightbox__actions">
               <button type="button" className="pill" onClick={() => setOpen(null)}>

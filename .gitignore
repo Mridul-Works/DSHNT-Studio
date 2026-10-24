@@ -1,5 +1,8 @@
 node_modules
 .next
+
+# photo masters and compressed copies live outside git; the web set is in public/work
+assets/
 out
 build
 .env

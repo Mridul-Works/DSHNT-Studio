@@ -39,7 +39,7 @@ export const aperture = {
   headline: ["Start with", "the light."],
   body: "Every shoot begins with one decision: how much light to let in. Dishant plans the look, the place and the shot list before the day, so the session itself is relaxed and nothing is left to chance.",
   stops: [16, 11, 8, 5.6, 4, 2.8, 2, 1.8],
-  src: "https://picsum.photos/seed/dshnt-aperture/1400/1400",
+  src: "/work/IMG_1558.jpg",
 };
 
 export type Service = { name: string; detail: string };
@@ -113,38 +113,43 @@ export const steps = [
   { title: "Deliver", text: "Edited, retouched photos delivered online, with prints and albums on request." },
 ];
 
-// Portfolio. Replace `src` with Dishant's own photos (e.g. "/work/portrait-01.jpg"),
-// keep `ratio` honest (w/h) so the wall lays out without jumping, and set
-// `select: true` on the frames he'd pick first.
-export type Category = "Portrait" | "Creative" | "Nature" | "Commercial";
+// Portfolio. Photos live in public/work (2400px web copies of the masters in
+// assets/). `ratio` is width ÷ height so the wall lays out without jumping;
+// `select: true` marks the frames shown first ("Pick"). `exif` is optional:
+// add it only when the real exposure data is known.
+export type Category = "Portrait" | "Nature" | "Travel" | "Creative";
 export type Frame = {
   src: string;
   title: string;
   category: Category;
   ratio: number;
-  exif: string;
+  exif?: string;
   select?: boolean;
 };
 
-const ph = (seed: string, w: number, h: number) => `https://picsum.photos/seed/${seed}/${w}/${h}`;
+export const categories: Category[] = ["Portrait", "Nature", "Travel", "Creative"];
 
-export const categories: Category[] = ["Portrait", "Creative", "Nature", "Commercial"];
+const TALL = 1602 / 2400;
+const WIDE = 2400 / 1602;
 
 export const frames: Frame[] = [
-  { src: ph("dshnt-p1", 900, 1125), ratio: 4 / 5, title: "Window light portrait", category: "Portrait", exif: "85mm · f/1.8 · 1/200 · ISO 200", select: true },
-  { src: ph("dshnt-c1", 1200, 800), ratio: 3 / 2, title: "Old city, early morning", category: "Creative", exif: "35mm · f/5.6 · 1/500 · ISO 100" },
-  { src: ph("dshnt-n1", 1200, 900), ratio: 4 / 3, title: "Ridge at golden hour", category: "Nature", exif: "24mm · f/8 · 1/250 · ISO 100", select: true },
-  { src: ph("dshnt-b1", 1000, 1000), ratio: 1, title: "Café menu shoot", category: "Commercial", exif: "50mm · f/2.8 · 1/160 · ISO 400" },
-  { src: ph("dshnt-p2", 900, 1125), ratio: 4 / 5, title: "Studio headshot", category: "Portrait", exif: "85mm · f/4 · 1/160 · ISO 100" },
-  { src: ph("dshnt-c2", 1200, 800), ratio: 3 / 2, title: "Light trails, highway", category: "Creative", exif: "18mm · f/11 · 20s · ISO 100", select: true },
-  { src: ph("dshnt-n2", 900, 1125), ratio: 4 / 5, title: "Kingfisher, wetlands", category: "Nature", exif: "300mm · f/5.6 · 1/2000 · ISO 800" },
-  { src: ph("dshnt-b2", 1000, 1000), ratio: 1, title: "Product on stone", category: "Commercial", exif: "100mm · f/8 · 1/125 · ISO 100", select: true },
-  { src: ph("dshnt-p3", 1200, 900), ratio: 4 / 3, title: "Lookbook, outdoors", category: "Portrait", exif: "50mm · f/2 · 1/1000 · ISO 100" },
-  { src: ph("dshnt-c3", 900, 1125), ratio: 4 / 5, title: "Monochrome market", category: "Creative", exif: "35mm · f/4 · 1/320 · ISO 400" },
-  { src: ph("dshnt-n3", 1200, 800), ratio: 3 / 2, title: "River after the rain", category: "Nature", exif: "16mm · f/16 · 2s · ISO 50" },
-  { src: ph("dshnt-b3", 1200, 900), ratio: 4 / 3, title: "Bike at the dealership", category: "Commercial", exif: "24mm · f/5.6 · 1/200 · ISO 200" },
-  { src: ph("dshnt-p4", 900, 1125), ratio: 4 / 5, title: "Candid, on the rooftop", category: "Portrait", exif: "35mm · f/1.4 · 1/800 · ISO 100", select: true },
-  { src: ph("dshnt-c4", 1000, 1000), ratio: 1, title: "Dew on a leaf", category: "Creative", exif: "100mm macro · f/11 · 1/200 · ISO 200" },
-  { src: ph("dshnt-n4", 900, 1125), ratio: 4 / 5, title: "Trail through the pines", category: "Nature", exif: "35mm · f/8 · 1/160 · ISO 200" },
-  { src: ph("dshnt-b4", 1200, 800), ratio: 3 / 2, title: "Gym campaign", category: "Commercial", exif: "50mm · f/2.8 · 1/500 · ISO 640" },
+  { src: "/work/IMG_1595.jpg", ratio: TALL, title: "In the high chair", category: "Portrait", select: true },
+  { src: "/work/IMG_1558.jpg", ratio: WIDE, title: "Glacial lake, still morning", category: "Nature", select: true },
+  { src: "/work/IMG_1546.jpg", ratio: WIDE, title: "By the lake, snow on the peaks", category: "Portrait" },
+  { src: "/work/IMG_1621.jpg", ratio: WIDE, title: "Golden hour in the pasture", category: "Nature", select: true },
+  { src: "/work/IMG_1535.jpg", ratio: TALL, title: "Bench, hard light", category: "Portrait", select: true },
+  { src: "/work/IMG_1559.jpg", ratio: WIDE, title: "Mountain town from above", category: "Travel" },
+  { src: "/work/IMG_1628.jpg", ratio: TALL, title: "Tail lights, black and white", category: "Creative", select: true },
+  { src: "/work/IMG_2569.jpg", ratio: 1.5, title: "Sunny street", category: "Portrait" },
+  { src: "/work/IMG_1565.jpg", ratio: WIDE, title: "Last light over the lake", category: "Nature", select: true },
+  { src: "/work/IMG_1620.jpg", ratio: TALL, title: "Cattle in the haze", category: "Nature" },
+  { src: "/work/IMG_1627.jpg", ratio: WIDE, title: "Road into town, moon up", category: "Travel" },
+  { src: "/work/IMG_1540.jpg", ratio: WIDE, title: "On the boardwalk", category: "Portrait" },
+  { src: "/work/IMG_1562.jpg", ratio: WIDE, title: "Mountain through the window", category: "Creative" },
+  { src: "/work/IMG_1596.jpg", ratio: WIDE, title: "Clapping", category: "Portrait" },
+  { src: "/work/IMG_1624.jpg", ratio: 1.5, title: "Farm at dusk", category: "Nature" },
+  { src: "/work/IMG_1629.jpg", ratio: TALL, title: "Tail lights at sunset", category: "Creative" },
+  { src: "/work/IMG_1560.jpg", ratio: WIDE, title: "Ridge line", category: "Travel" },
+  { src: "/work/IMG_1619.jpg", ratio: 1.5, title: "Grazing, autumn", category: "Nature" },
+  { src: "/work/IMG_1563.jpg", ratio: WIDE, title: "Cloud between the pines", category: "Creative" },
 ];
