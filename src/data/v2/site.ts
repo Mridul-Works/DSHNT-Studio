@@ -42,11 +42,14 @@ export const about = {
 };
 
 // The scroll gallery. A slit between the words opens into a full photo as you
-// scroll; each stage shows the next photo. `flip` replaces the middle word
-// once it is fully open.
+// scroll; each stage shows the next photo. `words` are [left, middle, right];
+// leave the middle empty to put the gate between two words. `flip` replaces
+// the middle word once fully open (ignored when the middle is empty). The
+// headline links to /v2/work.
 export const opens = {
-  words: ["it only", "opens", "this much"],
-  flip: "needs",
+  words: ["Selected", "", "work"],
+  flip: "",
+  href: "/v2/work",
   // tall and wide alternate; the flash-lit "All in." frames are spaced between the quieter ones
   stages: [
     "/work/dishant-01.jpg",

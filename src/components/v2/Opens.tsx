@@ -9,7 +9,8 @@ import { frames, opens } from "@/data/v2/site";
 // The gallery as a film gate. Between the words of the headline sits a narrow
 // slit of photograph. Scrolling opens it: the slit grows into a near full-screen
 // print, the photo changes at each step, the outer words are pushed apart with
-// their tracking stretched, and once fully open the middle word flips.
+// their tracking stretched, and (if there is a middle word) it flips once fully
+// open. The headline is a link to the full work page.
 
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
@@ -59,12 +60,27 @@ export default function Opens() {
     const rw = right.current.getBoundingClientRect().width;
     const mw = mid.current.querySelector<HTMLSpanElement>(".is-on")?.getBoundingClientRect().width ?? 0;
     const half = Math.max(width / 2, mw / 2);
-    let lx = Math.max(gutter, vw / 2 - half - gap - lw);
+    const lxRaw = vw / 2 - half - gap - lw;
+    const rxRaw = vw / 2 + half + gap;
+    let lx = Math.max(gutter, lxRaw);
     lx = Math.min(lx, vw / 2 - mw / 2 - minGap - lw);
-    let rx = Math.min(vw - gutter - rw, vw / 2 + half + gap);
+    let rx = Math.min(vw - gutter - rw, rxRaw);
     rx = Math.max(rx, vw / 2 + mw / 2 + minGap);
     left.current.style.transform = `translateX(${lx}px)`;
     right.current.style.transform = `translateX(${rx}px)`;
+
+    // Once the words have hit the gutters the gate keeps growing into them: from
+    // that moment the photo sits above the text and covers it. When a word is
+    // almost entirely covered (90%+) it fades, so nothing peeks out past the edge.
+    const over = lxRaw < gutter || rxRaw > vw - gutter - rw;
+    w.classList.toggle("is-over", over);
+    const gateL = vw / 2 - width / 2;
+    const gateR = vw / 2 + width / 2;
+    const coverL = clamp01((lx + lw - gateL) / lw);
+    const coverR = clamp01((gateR - rx) / rw);
+    const fadeOf = (c: number) => 1 - clamp01((c - 0.9) / 0.08);
+    left.current.style.opacity = String(fadeOf(coverL));
+    right.current.style.opacity = String(fadeOf(coverR));
 
     const s = Math.min(n - 1, Math.floor(clamp01(p / GROW_END) * n));
     if (s !== stageRef.current) {
@@ -123,17 +139,19 @@ export default function Opens() {
           ))}
         </div>
 
-        <h2 className="opens__line" aria-label={`${opens.words[0]} ${opens.words[1]} ${opens.words[2]}`}>
-          <span className="opens__word" ref={left} aria-hidden="true">
-            {opens.words[0]}
-          </span>
-          <span className="opens__word opens__word--mid" ref={mid} aria-hidden="true">
-            <span className={flipped ? "is-off" : "is-on"}>{opens.words[1]}</span>
-            <span className={flipped ? "is-on" : "is-off"}>{opens.flip}</span>
-          </span>
-          <span className="opens__word" ref={right} aria-hidden="true">
-            {opens.words[2]}
-          </span>
+        <h2 className="opens__line">
+          <Link href={opens.href} className="opens__link" aria-label={`${opens.words.filter(Boolean).join(" ")}: see all work`}>
+            <span className="opens__word" ref={left} aria-hidden="true">
+              {opens.words[0]}
+            </span>
+            <span className="opens__word opens__word--mid" ref={mid} aria-hidden="true">
+              <span className={flipped ? "is-off" : "is-on"}>{opens.words[1]}</span>
+              <span className={flipped ? "is-on" : "is-off"}>{opens.flip}</span>
+            </span>
+            <span className="opens__word" ref={right} aria-hidden="true">
+              {opens.words[2]}
+            </span>
+          </Link>
         </h2>
 
         <p className="opens__caption mono" aria-live="polite">

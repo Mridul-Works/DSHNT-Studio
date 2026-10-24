@@ -1210,6 +1210,16 @@ textarea {
   will-change: width, height;
 }
 
+/* enlarged: above the headline, below the rule and caption */
+.opens__window.is-over {
+  z-index: 3;
+}
+
+.opens__rule,
+.opens__caption {
+  z-index: 4;
+}
+
 .opens__line {
   position: absolute;
   z-index: 2;
@@ -1227,11 +1237,27 @@ textarea {
   pointer-events: none;
 }
 
+/* the headline is a link; the words are the clickable parts (the line itself lets
+   clicks through to the gate) */
+.opens__link {
+  color: inherit;
+  text-decoration: none;
+}
+
 .opens__word {
   position: absolute;
   top: 0;
   left: 0;
   will-change: transform;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.opens__link:hover .opens__word,
+.opens__link:focus-visible .opens__word {
+  text-decoration: underline;
+  text-decoration-thickness: 0.035em;
+  text-underline-offset: 0.14em;
 }
 
 .opens__word--mid {
