@@ -31,6 +31,14 @@ export const about = {
     ["Delivers", "Edited photos, prints and albums"],
     ["Bookings", "Open for new shoots"],
   ],
+  // Dishant himself. These are Instagram-size (512–640 px), so they only
+  // appear here at portrait size, never in the full-screen gallery.
+  portrait: { src: "/work/dishant-01.jpg", alt: "Dishant, in a beanie and sunglasses, standing at the edge of a lake" },
+  more: [
+    { src: "/work/dishant-02.jpg", alt: "Dishant sitting on driftwood at a mountain lake" },
+    { src: "/work/dishant-03.jpg", alt: "Dishant in an Arsenal shirt leaning on a car, black and white" },
+  ],
+  caption: "Dishant · the one behind the camera",
 };
 
 // The scroll gallery. A slit between the words opens into a full photo as you
@@ -39,13 +47,18 @@ export const about = {
 export const opens = {
   words: ["it only", "opens", "this much"],
   flip: "needs",
+  // tall and wide alternate; the flash-lit "All in." frames are spaced between the quieter ones
   stages: [
-    "/work/IMG_1535.jpg",
+    "/work/dishant-01.jpg",
+    "/work/allin-01.jpg",
     "/work/IMG_1595.jpg",
+    "/work/allin-02.jpg",
     "/work/IMG_1628.jpg",
+    "/work/allin-04.jpg",
+    "/work/allin-05.jpg",
+    "/work/banff-04.jpg",
     "/work/IMG_1621.jpg",
-    "/work/IMG_1558.jpg",
-    "/work/IMG_1565.jpg",
+    "/work/banff-02.jpg",
   ],
 };
 
@@ -153,19 +166,30 @@ export const frames: Frame[] = [
   { src: "/work/IMG_1558.jpg", ratio: WIDE, title: "Glacial lake, still morning", category: "Nature", select: true },
   { src: "/work/IMG_1546.jpg", ratio: WIDE, title: "By the lake, snow on the peaks", category: "Portrait" },
   { src: "/work/IMG_1621.jpg", ratio: WIDE, title: "Golden hour in the pasture", category: "Nature", select: true },
-  { src: "/work/IMG_1535.jpg", ratio: TALL, title: "Bench, hard light", category: "Portrait", select: true },
+  // Dishant himself; 512x640, so it opens the gallery while the gate is still small
+  { src: "/work/dishant-01.jpg", ratio: 4 / 5, title: "Dishant, by the lake", category: "Portrait", select: true },
   { src: "/work/IMG_1559.jpg", ratio: WIDE, title: "Mountain town from above", category: "Travel" },
   { src: "/work/IMG_1628.jpg", ratio: TALL, title: "Tail lights, black and white", category: "Creative", select: true },
   { src: "/work/IMG_2569.jpg", ratio: 1.5, title: "Sunny street", category: "Portrait" },
-  { src: "/work/IMG_1565.jpg", ratio: WIDE, title: "Last light over the lake", category: "Nature", select: true },
+  // Dishant's own Instagram grade of this frame, in place of the camera master
+  { src: "/work/banff-02.jpg", ratio: WIDE, title: "Last light over the lake", category: "Nature", select: true },
   { src: "/work/IMG_1620.jpg", ratio: TALL, title: "Cattle in the haze", category: "Nature" },
   { src: "/work/IMG_1627.jpg", ratio: WIDE, title: "Road into town, moon up", category: "Travel" },
   { src: "/work/IMG_1540.jpg", ratio: WIDE, title: "On the boardwalk", category: "Portrait" },
-  { src: "/work/IMG_1562.jpg", ratio: WIDE, title: "Mountain through the window", category: "Creative" },
+  // Dishant's own Instagram grade of this frame, in place of the camera master
+  { src: "/work/banff-03.jpg", ratio: WIDE, title: "Mountain through the window", category: "Creative" },
   { src: "/work/IMG_1596.jpg", ratio: WIDE, title: "Clapping", category: "Portrait" },
   { src: "/work/IMG_1624.jpg", ratio: 1.5, title: "Farm at dusk", category: "Nature" },
   { src: "/work/IMG_1629.jpg", ratio: TALL, title: "Tail lights at sunset", category: "Creative" },
   { src: "/work/IMG_1560.jpg", ratio: WIDE, title: "Ridge line", category: "Travel" },
   { src: "/work/IMG_1619.jpg", ratio: 1.5, title: "Grazing, autumn", category: "Nature" },
   { src: "/work/IMG_1563.jpg", ratio: WIDE, title: "Cloud between the pines", category: "Creative" },
+  // From the insta folder: the "All in." set (hard flash, one colour let through) and Banff
+  { src: "/work/allin-01.jpg", ratio: WIDE, title: "Green jacket, hard flash", category: "Creative", select: true },
+  { src: "/work/allin-02.jpg", ratio: WIDE, title: "Mirror, black and white", category: "Creative" },
+  { src: "/work/allin-03.jpg", ratio: WIDE, title: "Mirror, phone up", category: "Creative" },
+  { src: "/work/allin-04.jpg", ratio: WIDE, title: "Orange cap, split colour", category: "Creative", select: true },
+  { src: "/work/allin-05.jpg", ratio: WIDE, title: "Neon shoes", category: "Creative", select: true },
+  { src: "/work/banff-01.jpg", ratio: WIDE, title: "Lake Louise, the glacier", category: "Nature" },
+  { src: "/work/banff-04.jpg", ratio: WIDE, title: "At Lake Louise", category: "Travel", select: true },
 ];

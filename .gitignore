@@ -1,8 +1,11 @@
 node_modules
 .next
 
-# photo masters and compressed copies live outside git; the web set is in public/work
+# photo masters, compressed copies and raw Instagram/WhatsApp drops live outside git;
+# the web set is in public/work
 assets/
+insta/
+reference.mp4
 out
 build
 .env

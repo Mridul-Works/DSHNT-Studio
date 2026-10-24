@@ -137,7 +137,7 @@ export const frames: Frame[] = [
   { src: "/work/IMG_1558.jpg", ratio: WIDE, title: "Glacial lake, still morning", category: "Nature", select: true },
   { src: "/work/IMG_1546.jpg", ratio: WIDE, title: "By the lake, snow on the peaks", category: "Portrait" },
   { src: "/work/IMG_1621.jpg", ratio: WIDE, title: "Golden hour in the pasture", category: "Nature", select: true },
-  { src: "/work/IMG_1535.jpg", ratio: TALL, title: "Bench, hard light", category: "Portrait", select: true },
+  { src: "/work/IMG_1536.jpg", ratio: TALL, title: "Bench, hard light", category: "Portrait", select: true },
   { src: "/work/IMG_1559.jpg", ratio: WIDE, title: "Mountain town from above", category: "Travel" },
   { src: "/work/IMG_1628.jpg", ratio: TALL, title: "Tail lights, black and white", category: "Creative", select: true },
   { src: "/work/IMG_2569.jpg", ratio: 1.5, title: "Sunny street", category: "Portrait" },
