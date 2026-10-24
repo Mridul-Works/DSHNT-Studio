@@ -18,11 +18,11 @@ export default function HomeV2() {
       <main>
         <Hero />
         <Opens />
+        <EnquiryForm />
         <Aperture />
         <About />
         <Services />
         <Process />
-        <EnquiryForm />
       </main>
       <Footer />
     </>
